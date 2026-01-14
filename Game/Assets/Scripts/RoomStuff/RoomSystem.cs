@@ -1,26 +1,30 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
-using Unity.Cinemachine;
 using System.Linq;
+using Unity.Cinemachine;
+using UnityEngine;
 using UnityEngine.Splines;
 
 public class RoomSystem : MonoBehaviour
 {
     public CinemachineSplineDolly CamPath;
-    [SerializeField]private List<GameObject> Rooms = new List<GameObject>();
+    [SerializeField]private List<GameObject> _rooms = new List<GameObject>();
     private int _curentRoom;
     private GameObject _player;
+
+    public int CurentRoom => _curentRoom;
+    public List<GameObject> Rooms => _rooms;
 
     void Start()
     {
         // Get the instantiated Rooms and the Player
         _player = GameObject.FindWithTag("Player");
-        Rooms = GameObject.FindGameObjectsWithTag("Room").ToList<GameObject>();
-        _curentRoom = Rooms.Count - 1;
+        _rooms = GameObject.FindGameObjectsWithTag("Room").ToList<GameObject>();
+        _rooms.Sort((x,y) => x.transform.position.x.CompareTo(y.transform.position.x));
 
+        //Deactivate all rooms the player isnt in
         Rooms.ForEach(room => room.SetActive(false));
-        Rooms[Rooms.Count - 1].SetActive(true);
+        Rooms[0].SetActive(true);
     }
 
     void Update()
@@ -32,12 +36,12 @@ public class RoomSystem : MonoBehaviour
             if (Room.activeSelf && _player.transform.position.x >= Room.transform.position.x + lenght)
             {
                 Room.SetActive(false);
-                Rooms[_curentRoom -= 1].SetActive(true);
+                Rooms[_curentRoom += 1].SetActive(true);
             }
             if (Room.activeSelf && _player.transform.position.x <= Room.transform.position.x)
             {
                 Room.SetActive(false);
-                Rooms[_curentRoom += 1].SetActive(true);
+                Rooms[_curentRoom -= 1].SetActive(true);
             }
         }
         // Set the Camera path to the one of the room

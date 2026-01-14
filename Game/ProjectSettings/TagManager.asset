@@ -43,5 +43,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG
+    uniqueID: 166412345
+    locked: 0
+  - name: MG
+    uniqueID: 2170196391
+    locked: 0
+  - name: FG
+    uniqueID: 2293898161
+    locked: 0
+  - name: Player
+    uniqueID: 1582542539
+    locked: 0
   m_RenderingLayers:
   - Default

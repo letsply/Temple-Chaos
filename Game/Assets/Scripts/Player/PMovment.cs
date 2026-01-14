@@ -78,7 +78,7 @@ public class PMovment : MonoBehaviour
         _rb.AddForce(finalAccelartion * Vector2.right);
 
         //Animation
-        _anim.SetFloat("Walk", _dirX);
+        _anim.SetFloat("Walk", Mathf.Abs(_dirX));
 
         _anim.SetBool("Sprinting", _sprinting);
 
@@ -150,11 +150,11 @@ public class PMovment : MonoBehaviour
 
     public void Sprint(InputAction.CallbackContext context)
     {
-        if (context.performed && _extraJump == _extraJumpMax)
+        if (context.performed)
         {
             _sprinting = true;
         }
-        else if (context.canceled && _timeToJump > _airTime && _extraJump == _extraJumpMax)
+        else if (context.canceled)
         {
             _sprinting = false;
         }
@@ -162,6 +162,16 @@ public class PMovment : MonoBehaviour
     public void InputX(InputAction.CallbackContext context)
     {
         _dirX = context.ReadValue<float>();
+
+        if (_dirX < 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (_dirX > 0) 
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
     }
     public void Jump(InputAction.CallbackContext context)
     {
