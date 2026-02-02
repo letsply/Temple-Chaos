@@ -12,12 +12,13 @@ public class TestItem : BaseItem
         itemName = "Test";
         itemIndex = 1;
         itemPrice = 99999999;
+        uses = 0;
 
-        itemInfo = "Test";
+        itemInfo = $"Test also it has {uses + 1} uses.";
     }
     public override void UseItem()
     {
-        Wait(2);
+        StartCoroutine(Wait(2));
 
     }
 

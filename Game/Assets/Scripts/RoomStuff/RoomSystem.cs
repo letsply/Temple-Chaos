@@ -9,7 +9,8 @@ public class RoomSystem : MonoBehaviour
 {
     public CinemachineSplineDolly CamPath;
     [SerializeField]private List<GameObject> _rooms = new List<GameObject>();
-    private int _curentRoom;
+
+    private int _curentRoom; 
     private GameObject _player;
 
     public int CurentRoom => _curentRoom;
@@ -20,6 +21,7 @@ public class RoomSystem : MonoBehaviour
         // Get the instantiated Rooms and the Player
         _player = GameObject.FindWithTag("Player");
         _rooms = GameObject.FindGameObjectsWithTag("Room").ToList<GameObject>();
+        // sort rooms by x posiotion
         _rooms.Sort((x,y) => x.transform.position.x.CompareTo(y.transform.position.x));
 
         //Deactivate all rooms the player isnt in

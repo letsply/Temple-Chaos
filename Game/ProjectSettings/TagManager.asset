@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Floor
   - Room
+  - OverlapAreas
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Item
   - Water
   - UI
   - 

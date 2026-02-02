@@ -8,6 +8,8 @@ public class PMovment : MonoBehaviour
     private bool _isHoldingJump;
     private float _dirX;
 
+    [SerializeField] private GameObject m_menu;
+
     #region Running Vars
     [Header("running")]
 
@@ -216,6 +218,12 @@ public class PMovment : MonoBehaviour
             }
         }
 
+    }
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        Time.timeScale = 0;
+        m_menu.SetActive(true);
     }
 
     #endregion 
