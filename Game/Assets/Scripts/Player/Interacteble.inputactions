@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "Interacteble",
+    "maps": [
+        {
+            "name": "Interacteble",
+            "id": "3a4fc1f6-126b-4d3a-b61b-bea20a99fb7f",
+            "actions": [
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "361e3126-b947-4295-a73d-0d3d003aebcd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "84451a84-d82b-489a-bef0-be82aa4f7115",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b71e3d47-cedb-4b9e-abdf-f93b8b83fb2a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f4bea38-3aea-4611-afb0-8d75cf52cae3",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

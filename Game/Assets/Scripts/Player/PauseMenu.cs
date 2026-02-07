@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -22,5 +23,13 @@ public class PauseMenu : MonoBehaviour
         GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().Save();
         Application.Quit();
         EditorApplication.isPlaying = false;
+    }
+
+    public void Close(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Time.timeScale = 1f;
+        }
     }
 }
