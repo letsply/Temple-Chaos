@@ -1,0 +1,27 @@
+To Do:
+
+Main
+(	
+	-the Map in General
+	-Player Health
+	-Enemy
+	-Some Item to Show how inv works
+	-More Traps
+	-Shop
+)
+
+Extra
+(
+	-Arrow Destroy Particles
+	-bomb item
+	-quests (wenn angenommen dann wartet der NPC mit den quest im hub)
+	-Json save game
+)
+
+Note: 
+Swap from making Player staying in pos to Slowing down time while time Swap Effect
+
+ideal Arrow mass = 0,05
+Speed = 2.5
+
+Rotations in Unity are ass
