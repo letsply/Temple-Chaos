@@ -2,6 +2,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PMovment : MonoBehaviour
 {
@@ -226,7 +227,20 @@ public class PMovment : MonoBehaviour
         m_menu.SetActive(true);
     }
 
-    #endregion 
+    #endregion
+
+    #region GetMethods
+    public float JumpForce() => _jumpV;
+
+    #endregion
+
+    #region MethodsToChangeValues
+    public void ChangeJumpForce(float value)
+    {
+        _jumpV = value;
+    }
+
+    #endregion
 
     private void OnTriggerStay2D(Collider2D collision)
     {

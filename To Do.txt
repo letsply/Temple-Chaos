@@ -8,6 +8,7 @@ Main
 	-Some Item to Show how inv works
 	-More Traps
 	-Shop
+	-Achivments
 )
 
 Extra
