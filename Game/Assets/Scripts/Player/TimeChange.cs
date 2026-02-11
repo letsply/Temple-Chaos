@@ -28,13 +28,28 @@ public class TimeChange : MonoBehaviour
     private bool isInOverlayArea;
     private bool _canSwitch = true;
 
+
+    public void findPastAndPresent(GameObject past,GameObject present)
+    {
+        if (past == null || present == null)
+        {
+            _past = roomSystem.Rooms[roomSystem.CurentRoom].transform.Find("Past").gameObject;
+            _present = roomSystem.Rooms[roomSystem.CurentRoom].transform.Find("Present").gameObject;
+        }
+        else 
+        {
+            _past = past;
+            _present = present;
+        }
+        
+    }
+
     public void Start()
     {
         // find the roomSystem that has the rooms
         roomSystem = GameObject.Find("GameManager").GetComponent<RoomSystem>();
         // get the past and present from the roomsystem
-        _past = roomSystem.Rooms[roomSystem.CurentRoom].transform.Find("Past").gameObject;
-        _present = roomSystem.Rooms[roomSystem.CurentRoom].transform.Find("Present").gameObject;
+        findPastAndPresent(null,null);
 
         if (_present.activeSelf && _past.activeSelf)
         {
@@ -42,51 +57,53 @@ public class TimeChange : MonoBehaviour
             _present.SetActive(true);
         }
     }
+
+    public void TimeSwap()
+    {
+        StartCoroutine(Flash(15, 0.75f));
+
+        if (_past.activeSelf)
+        {
+            _present.SetActive(true);
+            _past.SetActive(false);
+
+            _presentVolume.SetActive(true);
+            _pastVolume.SetActive(false);
+
+            GetComponentInChildren<Light2D>().enabled = true;
+
+            _globalLight.GetComponent<Light2D>().color = new Color(0.81f, 0.81f, 0.95f);
+            _globalBGLight.GetComponent<Light2D>().color = new Color(0.81f, 0.81f, 0.95f);
+
+            _globalBGLight.GetComponent<Light2D>().intensity = 0.1f;
+            _globalLight.GetComponent<Light2D>().intensity = 0.3f;
+
+        }
+        else
+        {
+            _present.SetActive(false);
+            _past.SetActive(true);
+
+            GetComponentInChildren<Light2D>().enabled = false;
+
+            _globalLight.GetComponent<Light2D>().color = new Color(0.93f, 0.92f, 0.75f);
+            _globalBGLight.GetComponent<Light2D>().color = new Color(0.93f, 0.92f, 0.75f);
+
+            _globalBGLight.GetComponent<Light2D>().intensity = 0.2f;
+            _globalLight.GetComponent<Light2D>().intensity = 0.7f;
+
+            _presentVolume.SetActive(false);
+            _pastVolume.SetActive(true);
+
+        }
+    }
+
     public void Activate(InputAction.CallbackContext context)
     {
-        // get the past and present from the roomsystem
-        _past = roomSystem.Rooms[roomSystem.CurentRoom].transform.Find("Past").gameObject;
-        _present = roomSystem.Rooms[roomSystem.CurentRoom].transform.Find("Present").gameObject;
-
         // swap between past and present
-        if(isInOverlayArea == false && _canSwitch)
+        if (isInOverlayArea == false && _canSwitch && context.performed && this.isActiveAndEnabled)
         {
-            StartCoroutine(Flash(15, 1.5f));
-
-            if (_past.activeSelf)
-            {
-                _present.SetActive(true);
-                _past.SetActive(false);
-
-                _presentVolume.SetActive(true);
-                _pastVolume.SetActive(false);
-
-                GetComponentInChildren<Light2D>().enabled = true;
-
-                _globalLight.GetComponent<Light2D>().color = new Color(0.81f, 0.81f, 0.95f);
-                _globalBGLight.GetComponent<Light2D>().color = new Color(0.81f, 0.81f, 0.95f);
-
-                _globalBGLight.GetComponent<Light2D>().intensity = 0.1f;
-                _globalLight.GetComponent<Light2D>().intensity = 0.3f;
-
-            }
-            else
-            {
-                _present.SetActive(false);
-                _past.SetActive(true);
-
-                GetComponentInChildren<Light2D>().enabled = false;
-
-                _globalLight.GetComponent<Light2D>().color = new Color(0.93f, 0.92f, 0.75f);
-                _globalBGLight.GetComponent<Light2D>().color = new Color(0.93f, 0.92f, 0.75f);
-
-                _globalBGLight.GetComponent<Light2D>().intensity = 0.2f;
-                _globalLight.GetComponent<Light2D>().intensity = 0.7f;
-
-                _presentVolume.SetActive(false);
-                _pastVolume.SetActive(true);
-
-            }
+            TimeSwap();
         }
         else if(context.performed && isInOverlayArea == true)
         {
@@ -120,18 +137,19 @@ public class TimeChange : MonoBehaviour
             _flash.GetComponent<Light2D>().pointLightOuterRadius = newradius;
 
             _canSwitch = false;
-            gameObject.GetComponent<PMovment>().enabled = false;
+            GetComponent<Rigidbody2D>().linearDamping = 15;
             _flash.GetComponent<Volume>().enabled = true;
             yield return null;
         }
         if (aValue != 0)
         {
-            StartCoroutine(Flash(0, 1f));
-        }
+            StartCoroutine(Flash(0, 0.25f));
 
-        gameObject.GetComponent<PMovment>().enabled = true;
+        }
+        GetComponent<Rigidbody2D>().linearDamping = 0;
         _flash.GetComponent<Volume>().enabled = false;
         _canSwitch = true;
+
     }
     private void OnTriggerStay2D(Collider2D collision)
     {

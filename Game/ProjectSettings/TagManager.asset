@@ -53,6 +53,9 @@ TagManager:
   - name: FG
     uniqueID: 2293898161
     locked: 0
+  - name: 'Interactbles '
+    uniqueID: 2381772071
+    locked: 0
   - name: Player
     uniqueID: 1582542539
     locked: 0

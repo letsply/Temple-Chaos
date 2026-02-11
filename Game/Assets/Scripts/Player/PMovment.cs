@@ -15,7 +15,7 @@ public class PMovment : MonoBehaviour
 
     [Range(0, 100)][SerializeField] private float _speed;
     [Range(0, 10)][SerializeField] private float _sprint;
-    [Range(0, 10)][SerializeField] private bool _sprinting;
+    [SerializeField] private bool _sprinting;
     [SerializeField] private float _accelaration;
     [SerializeField] private float _deccelaration;
     [SerializeField] private float _resistance;

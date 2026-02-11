@@ -121,6 +121,7 @@ public class Inventory : MonoBehaviour
             {
                 // if item = gold add the value and destroy the gold
                 _gold += item.GetComponent<Gold>().Value();
+                Instantiate(item.GetComponent<Gold>().goldDust,item.transform.position,Quaternion.identity);
                 Destroy(item);
             }
            

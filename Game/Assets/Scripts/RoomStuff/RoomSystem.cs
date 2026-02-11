@@ -39,11 +39,13 @@ public class RoomSystem : MonoBehaviour
             {
                 Room.SetActive(false);
                 Rooms[_curentRoom += 1].SetActive(true);
+                _player.GetComponent<TimeChange>().findPastAndPresent(null,null);
             }
             if (Room.activeSelf && _player.transform.position.x <= Room.transform.position.x)
             {
                 Room.SetActive(false);
                 Rooms[_curentRoom -= 1].SetActive(true);
+                _player.GetComponent<TimeChange>().findPastAndPresent(null, null);
             }
         }
         // Set the Camera path to the one of the room

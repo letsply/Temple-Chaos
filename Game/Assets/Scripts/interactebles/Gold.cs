@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Gold : MonoBehaviour
 {
-    [SerializeField] private int value = 0;
-    public int Value() { return value; }
+    [SerializeField] private int _value = 0;
+
+    [SerializeField] public GameObject goldDust;
+    public int Value() { return _value; }
    
 }

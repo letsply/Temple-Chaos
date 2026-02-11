@@ -13,13 +13,9 @@ public class StoneOfAja : MonoBehaviour
         if (_isInRange)
         {
             _timeChange.enabled = true;
-            _timeChange.Activate(context);
+            _timeChange.findPastAndPresent(_past, _present);
+            _timeChange.TimeSwap();
 
-            float t = 1;
-            while(t > 0)
-            {
-                t -= 1 * Time.deltaTime;
-            }
             Destroy(gameObject);
         }
     }
