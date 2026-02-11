@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class JumpPotion : BaseItem
 {
     [SerializeField]GameObject ItemDuraBar;
+    [SerializeField] Image ItemDura;
+    float Duration = 0;
     void Start()
     {
         itemName = "JumpPotion";
@@ -23,22 +25,30 @@ public class JumpPotion : BaseItem
     }
     public override void UseItem()
     {
-        StartCoroutine(JumpBoost(10,1.75f));
+        StartCoroutine(JumpBoost(10,1.5f));
     }
+    public void Update()
+    {
+        if (ItemDuraBar != null)
+        {
+            if (ItemDuraBar.activeSelf)
+            {
+                Duration -= 1 * Time.deltaTime;
+                ItemDura.GetComponentInChildren<Image>().fillAmount = Duration / 10;
+            }
+        }
+       
+    }
+
 
     IEnumerator JumpBoost(float time,float jumpForceMultiplyer)
     {
+        Duration = time;
         ItemDuraBar.SetActive(true);
         float startJumpForce = GetComponentInParent<PMovment>().JumpForce();
 
-        if (startJumpForce == GetComponentInParent<PMovment>().JumpForce())
-        {
-            for (float t = 1f; t > 0f; t -= Time.deltaTime / time)
-            {
-                GetComponentInParent<PMovment>().ChangeJumpForce(startJumpForce * jumpForceMultiplyer);
-                ItemDuraBar.GetComponentInChildren<Image>().fillAmount = t;
-            }
-        }
+        GetComponentInParent<PMovment>().ChangeJumpForce(startJumpForce * jumpForceMultiplyer);
+        yield return new WaitForSeconds(time);
 
         GetComponentInParent<PMovment>().ChangeJumpForce(startJumpForce);
         ItemDuraBar.SetActive(false);

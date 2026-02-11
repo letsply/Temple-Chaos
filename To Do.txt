@@ -5,7 +5,6 @@ Main
 	-the Map in General
 	-Player Health
 	-Enemy
-	-Some Item to Show how inv works
 	-More Traps
 	-Shop
 	-Achivments

@@ -57,15 +57,15 @@ public class Inventory : MonoBehaviour
         if (_invUI.activeSelf)
         {
             int margin = 0;
-            GameObject anchor = GameObject.Find("Anchor");
+            RectTransform anchor = GameObject.Find("Anchor").GetComponent<RectTransform>();
 
             // for every item in inv spawn the ui object if it isnt already existing
             for(int i = 0; i < _items.Length; i++)
             {
-                margin -= 150;
+                margin -= 300;
                 if (_items[i] != 0 && _itemIsInUI[i] == false)
                 {
-                    GameObject uiItem = Instantiate(_invItem, new Vector2(anchor.transform.position.x, anchor.transform.position.y + margin), new Quaternion(), anchor.transform);
+                    GameObject uiItem = Instantiate(_invItem, new Vector2(anchor.transform.position.x, anchor.position.y + margin), new Quaternion(), anchor.transform);
                     uiItem.GetComponent<UIItem>()._id = _items[i];
                     _itemIsInUI[i] = true;
                 }
