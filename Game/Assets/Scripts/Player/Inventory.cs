@@ -6,26 +6,27 @@ using UnityEngine.InputSystem;
 public class Inventory : MonoBehaviour
 {
     [Header("Inv Array")]
-    [SerializeField]private int[] _items = { 0,0,0,0,0 };
-    [SerializeField] private bool[] _itemIsInUI = { false, false, false, false, false };
+    [SerializeField] int[] _items = { 0,0,0,0,0 };
+    [SerializeField] bool[] _itemIsInUI = { false, false, false, false, false };
     public int[] Items() => _items;
-    public void SetItems(int value,int i) { _items[i] = value; }
+    // sets specific slots to item and if its null sets it the same in the ui
+    public void SetItems(int value,int i) { _items[i] = value; if (value == 0) { _itemIsInUI[i] = false; } }
 
-    private int _invSpace = 0;
-    private int _gold = 0;
-    private bool otherItem;
+    int _invSpace = 0;
+    int _gold = 0;
+    bool otherItem;
 
     [Header("Picking up Stuff")]
-    [SerializeField]private float _pickingRange;
-    [SerializeField] private LayerMask _itemLayer;
-    [SerializeField] private bool _itemIsPickable;
+    [SerializeField] float _pickingRange;
+    [SerializeField] LayerMask _itemLayer;
+    [SerializeField] bool _itemIsPickable;
 
     [Header("UI")]
-    [SerializeField] private GameObject _invFullPopUp;
-    [SerializeField] private GameObject _invUI;
-    [SerializeField] private GameObject _invItem;
-    [SerializeField] private GameObject _goldCount;
-    [SerializeField] private GameObject _eObject;
+    [SerializeField] GameObject _invFullPopUp;
+    [SerializeField] GameObject _invUI;
+    [SerializeField] GameObject _invItem;
+    [SerializeField] GameObject _goldCount;
+    [SerializeField] GameObject _eObject;
 
 
 
@@ -62,7 +63,7 @@ public class Inventory : MonoBehaviour
             // for every item in inv spawn the ui object if it isnt already existing
             for(int i = 0; i < _items.Length; i++)
             {
-                margin -= 300;
+                margin -= 150;
                 if (_items[i] != 0 && _itemIsInUI[i] == false)
                 {
                     GameObject uiItem = Instantiate(_invItem, new Vector2(anchor.transform.position.x, anchor.position.y + margin), new Quaternion(), anchor.transform);

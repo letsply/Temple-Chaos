@@ -6,9 +6,11 @@ public abstract class BaseItem : MonoBehaviour
     protected int itemIndex = 1;
     protected int itemPrice = 0;
     protected int uses = 0;
+    protected bool inUse = false;
 
     protected string itemInfo = "info";
 
+    public bool InUse() => inUse;
     public int ItemID() => itemIndex;
     public string ItemInfo() => itemInfo;
     public int ItemUses() => uses;

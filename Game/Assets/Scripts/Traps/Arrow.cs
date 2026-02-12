@@ -14,6 +14,7 @@ public class Arrow : MonoBehaviour
         if (collision.tag == "Player")
         {
             collision.GetComponent<Rigidbody2D>().AddForce(rb.linearVelocity * rb.mass, ForceMode2D.Impulse);
+            collision.GetComponent<Health>().TakeDamage(1);
             Destroy(gameObject);
         }
         else if (collision.tag == "Floor")

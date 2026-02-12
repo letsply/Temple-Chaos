@@ -10,8 +10,8 @@ public class RoomSystem : MonoBehaviour
     public CinemachineSplineDolly CamPath;
     [SerializeField]private List<GameObject> _rooms = new List<GameObject>();
 
-    private int _curentRoom; 
-    private GameObject _player;
+    int _curentRoom; 
+    GameObject _player;
 
     public int CurentRoom => _curentRoom;
     public List<GameObject> Rooms => _rooms;
@@ -40,6 +40,7 @@ public class RoomSystem : MonoBehaviour
                 Room.SetActive(false);
                 Rooms[_curentRoom += 1].SetActive(true);
                 _player.GetComponent<TimeChange>().findPastAndPresent(null,null);
+                _player.GetComponent<TimeChange>().NewRoom();
             }
             if (Room.activeSelf && _player.transform.position.x <= Room.transform.position.x)
             {

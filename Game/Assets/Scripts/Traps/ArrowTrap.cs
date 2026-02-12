@@ -18,7 +18,11 @@ public class ArrowTrap : MonoBehaviour
         {
             traps.Add(transform.GetChild(i).gameObject);
         }
-        if (allwaysActive) spawnArrows = true; StartCoroutine(Spawn(2, 3)); ; 
+        if (allwaysActive) 
+        {
+            spawnArrows = true;
+            StartCoroutine(Spawn(2, 3));
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -37,7 +37,7 @@ public class PMovment : MonoBehaviour
     private int _extraJumpMax;
     private float _airTime;
     private float _charge;
-
+    private float _normalJumpV;
     #endregion
 
     #region WallJumpingVars
@@ -56,6 +56,7 @@ public class PMovment : MonoBehaviour
     void Start()
     {
         _extraJumpMax = _extraJump;
+        _normalJumpV = _jumpV;
 
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
@@ -230,7 +231,7 @@ public class PMovment : MonoBehaviour
     #endregion
 
     #region GetMethods
-    public float JumpForce() => _jumpV;
+    public float NormalJumpForce() => _normalJumpV;
 
     #endregion
 

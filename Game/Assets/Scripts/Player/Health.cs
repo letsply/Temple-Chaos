@@ -4,6 +4,7 @@ public class Health : MonoBehaviour
 {
     [Range(0,10)] private int Hearts = 3;
     [SerializeField] GameObject[] uiHearts;
+    [SerializeField] GameObject deathUI;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +24,13 @@ public class Health : MonoBehaviour
             {
                 uiHearts[i].SetActive(true);
             }
+        }
+
+        if (Hearts <= 0)
+        {
+            deathUI.SetActive(true);
+            GetComponent<Inventory>().Save();
+            Time.timeScale = 0f;
         }
     }
     public void TakeDamage(int amount)

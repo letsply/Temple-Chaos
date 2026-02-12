@@ -8,14 +8,14 @@ using UnityEngine;
 
 public class UIItem : MonoBehaviour
 {
-    [SerializeField] private GameObject m_infoHolder;
-    [SerializeField] private BaseItem[] _items;
-    [SerializeField] private TextMeshProUGUI _nameText;
-    private GameObject m_itemHolder;
+    [SerializeField] GameObject m_infoHolder;
+    [SerializeField] BaseItem[] _items;
+    [SerializeField] TextMeshProUGUI _nameText;
+    GameObject m_itemHolder;
 
-    private BaseItem _item;
-    private string _info;
-    private int _itemUses;
+    BaseItem _item;
+    string _info;
+    int _itemUses;
     public int _id;
 
     void Start()
@@ -45,10 +45,10 @@ public class UIItem : MonoBehaviour
     }
     public void Use()
     {
-        if (_itemUses != _item.ItemUses())
+        if (_itemUses != _item.ItemUses() )
         {
             _item.UseItem();
-            _itemUses += 1;
+            _itemUses -= 1;
         }
         else
         {
@@ -59,6 +59,8 @@ public class UIItem : MonoBehaviour
                 if (_id == item)
                 {
                     GetComponentInParent<Inventory>().SetItems(0,i);
+                    GetComponentInParent<PauseMenu>().gameObject.SetActive(false);
+                    Time.timeScale = 1;
                     Destroy(gameObject);
                     break;
                 }

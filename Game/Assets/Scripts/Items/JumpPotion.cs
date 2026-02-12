@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class JumpPotion : BaseItem
 {
     [SerializeField]GameObject ItemDuraBar;
-    [SerializeField] Image ItemDura;
+    [SerializeField] Image ItemDura; 
     float Duration = 0;
     void Start()
     {
@@ -35,6 +35,11 @@ public class JumpPotion : BaseItem
             {
                 Duration -= 1 * Time.deltaTime;
                 ItemDura.GetComponentInChildren<Image>().fillAmount = Duration / 10;
+                inUse = true;
+            }
+            else
+            {
+                inUse = false;
             }
         }
        
@@ -45,7 +50,7 @@ public class JumpPotion : BaseItem
     {
         Duration = time;
         ItemDuraBar.SetActive(true);
-        float startJumpForce = GetComponentInParent<PMovment>().JumpForce();
+        float startJumpForce = GetComponentInParent<PMovment>().NormalJumpForce();
 
         GetComponentInParent<PMovment>().ChangeJumpForce(startJumpForce * jumpForceMultiplyer);
         yield return new WaitForSeconds(time);

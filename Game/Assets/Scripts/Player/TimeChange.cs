@@ -10,23 +10,24 @@ using UnityEngine.Rendering;
 public class TimeChange : MonoBehaviour
 {
     [Header("Past&Present")]
-    [SerializeField]private GameObject _past;
-    [SerializeField]private GameObject _present;
+    [SerializeField] GameObject _past;
+    [SerializeField] GameObject _present;
+    bool inPresent = false;
 
     [Header("Light&Volume")]
-    [SerializeField] private GameObject _globalLight;
-    [SerializeField] private GameObject _globalBGLight;
+    [SerializeField] GameObject _globalLight;
+    [SerializeField] GameObject _globalBGLight;
 
-    [SerializeField] private GameObject _pastVolume;
-    [SerializeField] private GameObject _presentVolume;
+    [SerializeField] GameObject _pastVolume;
+    [SerializeField] GameObject _presentVolume;
 
-    [SerializeField] private GameObject _flash;
+    [SerializeField] GameObject _flash;
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI m_warning;
+    [SerializeField] TextMeshProUGUI m_warning;
 
-    private RoomSystem roomSystem;
-    private bool isInOverlayArea;
-    private bool _canSwitch = true;
+    RoomSystem roomSystem;
+    bool isInOverlayArea;
+    bool _canSwitch = true;
 
 
     public void findPastAndPresent(GameObject past,GameObject present)
@@ -44,6 +45,7 @@ public class TimeChange : MonoBehaviour
         
     }
 
+
     public void Start()
     {
         // find the roomSystem that has the rooms
@@ -55,6 +57,20 @@ public class TimeChange : MonoBehaviour
         {
             _past.SetActive(false);
             _present.SetActive(true);
+        }
+    }
+
+    public void NewRoom()
+    {
+        if (inPresent == true)
+        {
+            _present.SetActive(true);
+            _past.SetActive(false);
+        }
+        else
+        {
+            _present.SetActive(false);
+            _past.SetActive(true);
         }
     }
 
@@ -77,7 +93,7 @@ public class TimeChange : MonoBehaviour
 
             _globalBGLight.GetComponent<Light2D>().intensity = 0.1f;
             _globalLight.GetComponent<Light2D>().intensity = 0.3f;
-
+            inPresent = true;
         }
         else
         {
@@ -94,7 +110,7 @@ public class TimeChange : MonoBehaviour
 
             _presentVolume.SetActive(false);
             _pastVolume.SetActive(true);
-
+            inPresent = false;
         }
     }
 
