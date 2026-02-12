@@ -27,7 +27,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject _invItem;
     [SerializeField] GameObject _goldCount;
     [SerializeField] GameObject _eObject;
-
+    RectTransform anchor = null;
 
 
     private void Start()
@@ -58,7 +58,10 @@ public class Inventory : MonoBehaviour
         if (_invUI.activeSelf)
         {
             int margin = 0;
-            RectTransform anchor = GameObject.Find("Anchor").GetComponent<RectTransform>();
+            if (anchor == null)
+            {
+                anchor = GameObject.Find("Anchor").GetComponent<RectTransform>();
+            }
 
             // for every item in inv spawn the ui object if it isnt already existing
             for(int i = 0; i < _items.Length; i++)
