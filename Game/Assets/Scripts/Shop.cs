@@ -9,35 +9,31 @@ public class Shop : MonoBehaviour
     [SerializeField] BaseItem[] shopItems = { null, null, null };
     [SerializeField] BaseItem[] itemsAvailable;
     bool isInRange;
-
+    bool isRandom;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         int margin = 0;
-        for (int i = 0; i < itemsAvailable.Length; i++)
+        for (int i = 0; i < shopItems.Length; i++)
         {
             int r = Random.Range(0, itemsAvailable.Length);
             shopItems[i] = itemsAvailable[r];
 
-            GameObject uiItem = Instantiate(shopUIItem, new Vector2(anchor.transform.position.x + margin, anchor.transform.position.y), new Quaternion(), anchor.transform);
-            uiItem.GetComponent<ShopUIItem>().id = shopItems[i].ItemID();
+            margin += 225;
+
+            GameObject uiItem = Instantiate(shopUIItem, new Vector2(anchor.transform.localPosition.x + margin, anchor.transform.position.y), new Quaternion(), anchor.transform);
+            uiItem.GetComponent<ShopUIItem>().SetID(shopItems[i].ItemID());
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Interaction(InputAction.CallbackContext context)
     {
         if (isInRange)
         {
             shopUI.SetActive(true);
             Time.timeScale = 0f;
-
-
         }
     }
 

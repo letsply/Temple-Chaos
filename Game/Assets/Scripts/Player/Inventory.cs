@@ -117,7 +117,7 @@ public class Inventory : MonoBehaviour
                     else if (_invSpace == 0)
                     {
                         //if no space in inv show it
-                        _invFullPopUp.SetActive(true);
+                        InvFull();
                     }
                 }
             }
@@ -147,4 +147,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void InvFull()
+    {
+        _invFullPopUp.SetActive(true);
+    }
 }
