@@ -12,8 +12,12 @@ public class Inventory : MonoBehaviour
     // sets specific slots to item and if its null sets it the same in the ui
     public void SetItems(int value,int i) { _items[i] = value; if (value == 0) { _itemIsInUI[i] = false; } }
 
-    int _invSpace = 0;
     int _gold = 0;
+    public int Gold() => _gold;
+    public void SetGold(int value) {  _gold -= _gold; }
+
+    int _invSpace = 0;
+    // if a interacteble isnt a item
     bool otherItem;
 
     [Header("Picking up Stuff")]

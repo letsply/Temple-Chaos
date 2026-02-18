@@ -4,7 +4,9 @@ using UnityEngine;
 public class ShopUIItem : MonoBehaviour
 {
     [SerializeField] GameObject infoHolder;
+    [SerializeField] GameObject goldDeficincyWarning;
     [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] TextMeshProUGUI priceText;
 
     BaseItem[] items;
     GameObject itemHolder;
@@ -12,6 +14,7 @@ public class ShopUIItem : MonoBehaviour
 
     string info;
     int id;
+    int price;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,6 +31,8 @@ public class ShopUIItem : MonoBehaviour
             {
                 info = item.ItemInfo();
                 nameText.text = item.ItemName();
+                priceText.text = item.ItemPrice().ToString();
+                price = item.ItemPrice();
             }
         }
     }
@@ -43,11 +48,19 @@ public class ShopUIItem : MonoBehaviour
     {
         for (int i = 0; i < inv.Items().Length;i++)
         {
-            if (inv.Items()[i] == 0)
+            if (price > inv.Gold())
             {
-                inv.SetItems(id, i);
-                Destroy(gameObject);
+                goldDeficincyWarning.SetActive(true);
                 return;
+            }
+            else {
+                if (inv.Items()[i] == 0)
+                {
+                    inv.SetItems(id, i);
+                    inv.SetGold(price);
+                    Destroy(gameObject);
+                    return;
+                }
             }
         }
         inv.InvFull();

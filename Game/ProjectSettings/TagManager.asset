@@ -59,5 +59,8 @@ TagManager:
   - name: Player
     uniqueID: 1582542539
     locked: 0
+  - name: Hiding
+    uniqueID: 3381668899
+    locked: 0
   m_RenderingLayers:
   - Default

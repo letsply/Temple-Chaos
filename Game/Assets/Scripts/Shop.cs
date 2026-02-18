@@ -5,26 +5,27 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] GameObject shopUI;
     [SerializeField] GameObject shopUIItem;
-    [SerializeField] GameObject anchor;
+    [SerializeField] RectTransform anchor;
     [SerializeField] BaseItem[] shopItems = { null, null, null };
     [SerializeField] BaseItem[] itemsAvailable;
     bool isInRange;
     bool isRandom;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
 
-        int margin = 0;
+        int margin = -100;
         for (int i = 0; i < shopItems.Length; i++)
         {
             int r = Random.Range(0, itemsAvailable.Length);
             shopItems[i] = itemsAvailable[r];
 
-            margin += 225;
+            margin += 200;
 
-            GameObject uiItem = Instantiate(shopUIItem, new Vector2(anchor.transform.localPosition.x + margin, anchor.transform.position.y), new Quaternion(), anchor.transform);
+            GameObject uiItem = Instantiate(shopUIItem, anchor.transform);
             uiItem.GetComponent<ShopUIItem>().SetID(shopItems[i].ItemID());
+            uiItem.GetComponent<RectTransform>().anchoredPosition += new Vector2(margin,0);
         }
     }
 
