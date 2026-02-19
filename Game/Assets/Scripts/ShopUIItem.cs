@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ShopUIItem : MonoBehaviour
 {
-    [SerializeField] GameObject infoHolder;
     [SerializeField] GameObject goldDeficincyWarning;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI priceText;
@@ -12,7 +11,6 @@ public class ShopUIItem : MonoBehaviour
     GameObject itemHolder;
     Inventory inv;
 
-    string info;
     int id;
     int price;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,19 +27,12 @@ public class ShopUIItem : MonoBehaviour
         {
             if (item.ItemID() == id)
             {
-                info = item.ItemInfo();
                 nameText.text = item.ItemName();
                 priceText.text = item.ItemPrice().ToString();
                 price = item.ItemPrice();
             }
+            Debug.Log(id);
         }
-    }
-    public void Info()
-    {
-        infoHolder.SetActive(true);
-
-        TextMeshProUGUI infoText = infoHolder.GetComponentInChildren<TextMeshProUGUI>();
-        infoText.text = info;
     }
 
     public void Buy()

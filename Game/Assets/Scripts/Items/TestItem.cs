@@ -7,7 +7,7 @@ public class TestItem : BaseItem
 {
     [SerializeField] private GameObject m_TestText;
 
-    void Start()
+    void Awake()
     {
         itemName = "Test";
         itemIndex = 1;

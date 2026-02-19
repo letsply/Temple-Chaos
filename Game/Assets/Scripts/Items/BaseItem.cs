@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class BaseItem : MonoBehaviour
 {
     protected string itemName = "Default";
-    protected int itemIndex = 1;
+    protected int itemIndex = 0;
     protected int itemPrice = 0;
     protected int uses = 0;
     protected bool inUse = false;

@@ -12,7 +12,7 @@ public class Shop : MonoBehaviour
     bool isRandom;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
 
         int margin = -100;

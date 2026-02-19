@@ -7,7 +7,7 @@ public class JumpPotion : BaseItem
     [SerializeField]GameObject ItemDuraBar;
     [SerializeField] Image ItemDura; 
     float Duration = 0;
-    void Start()
+    void Awake()
     {
         itemName = "JumpPotion";
         itemIndex = 2;
