@@ -54,7 +54,6 @@ public class Inventory : MonoBehaviour
         #region Interactability
         // Check if item can be hold 
         _itemIsPickable = Physics2D.OverlapBox(transform.position,new Vector2(gameObject.GetComponent<CapsuleCollider2D>().size.x + _pickingRange, gameObject.GetComponent<CapsuleCollider2D>().size.y),0,_itemLayer);
-        // if yes show it otherwise dont if there is no other thing that is interacteble
         if (otherItem == false) { _eObject.SetActive(_itemIsPickable); }
         #endregion
 
@@ -136,20 +135,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // method to save items and Gold
-    public void Save()
-    {
-        for (int i = 0; i < _items.Length; i++)
-        {
-            int saveVal = _items[i];
-            string saveName = $"Item{i}";
-            PlayerPrefs.SetInt(saveName, saveVal);
-
-            PlayerPrefs.SetInt("Gold", _gold);
-
-            PlayerPrefs.Save();
-        }
-    }
 
     public void InvFull()
     {

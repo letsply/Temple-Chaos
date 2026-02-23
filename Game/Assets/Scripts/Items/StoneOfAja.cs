@@ -8,6 +8,15 @@ public class StoneOfAja : MonoBehaviour
     [SerializeField] private GameObject _past;
     [SerializeField] private GameObject _present;
 
+    public void Start()
+    {
+        GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if (gameManager.TutorialCompleted() > 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Interaction(InputAction.CallbackContext context)
     {
         if (_isInRange)

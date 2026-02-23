@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class UIItem : MonoBehaviour
@@ -11,9 +12,11 @@ public class UIItem : MonoBehaviour
     [SerializeField] GameObject m_infoHolder;
     [SerializeField] BaseItem[] _items;
     [SerializeField] TextMeshProUGUI _nameText;
+    [SerializeField] Image image;
     GameObject m_itemHolder;
 
     BaseItem _item;
+    Sprite itemImage;
     string _info;
     int _itemUses;
     public int _id;
@@ -32,6 +35,11 @@ public class UIItem : MonoBehaviour
                 _item = item;
                 _info = item.ItemInfo();
                 _nameText.text = item.ItemName();
+                if (item.ItemImage() != null)
+                {
+                    itemImage = item.ItemImage();
+                    image.sprite = itemImage;
+                }
             }
         }
     }

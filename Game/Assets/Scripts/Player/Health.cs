@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
         if (Hearts <= 0)
         {
             deathUI.SetActive(true);
-            GetComponent<Inventory>().Save();
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().SaveFile();
             Time.timeScale = 0f;
         }
     }

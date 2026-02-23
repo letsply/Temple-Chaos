@@ -1040,6 +1040,7 @@ MonoBehaviour:
   m_infoHolder: {fileID: 7449899043266966224}
   _items: []
   _nameText: {fileID: 7300570409525634153}
+  image: {fileID: 8046368093318015893}
   _id: 0
 --- !u!1 &4160761467102997900
 GameObject:
@@ -1345,7 +1346,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 30, y: 0}
-  m_SizeDelta: {x: 35, y: 35}
+  m_SizeDelta: {x: 40, y: 47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3582289932222040014
 CanvasRenderer:

@@ -5,13 +5,15 @@ using UnityEngine.UI;
 public class JumpPotion : BaseItem
 {
     [SerializeField]GameObject ItemDuraBar;
-    [SerializeField] Image ItemDura; 
+    [SerializeField] Image ItemDura;
+    [SerializeField] Sprite potionImage;
     float Duration = 0;
     void Awake()
     {
         itemName = "JumpPotion";
         itemIndex = 2;
         itemPrice = 25;
+        itemImage = potionImage;
         uses = 0;
 
         if (uses == 0)

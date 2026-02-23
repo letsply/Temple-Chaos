@@ -9,10 +9,12 @@ public abstract class BaseItem : MonoBehaviour
     protected bool inUse = false;
 
     protected string itemInfo = "info";
+    protected Sprite itemImage;
 
     public bool InUse() => inUse;
     public int ItemID() => itemIndex;
     public string ItemInfo() => itemInfo;
+    public Sprite ItemImage() => itemImage;
     public int ItemPrice() => itemPrice;
     public int ItemUses() => uses;
     public string ItemName() => itemName;

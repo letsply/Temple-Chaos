@@ -1,15 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUIItem : MonoBehaviour
 {
     [SerializeField] GameObject goldDeficincyWarning;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI priceText;
+    [SerializeField] Image image;
 
     BaseItem[] items;
     GameObject itemHolder;
     Inventory inv;
+    Sprite shopItemImage;
 
     int id;
     int price;
@@ -30,8 +33,12 @@ public class ShopUIItem : MonoBehaviour
                 nameText.text = item.ItemName();
                 priceText.text = item.ItemPrice().ToString();
                 price = item.ItemPrice();
+                if (item.ItemImage() != null)
+                {
+                    shopItemImage = item.ItemImage();
+                    image.sprite = shopItemImage;
+                }
             }
-            Debug.Log(id);
         }
     }
 

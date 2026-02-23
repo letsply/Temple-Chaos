@@ -35,7 +35,6 @@ public class HiddenSegment : MonoBehaviour
         {
             StartCoroutine(FadeTo(1, 1));
         }
-        Debug.Log(inArea);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

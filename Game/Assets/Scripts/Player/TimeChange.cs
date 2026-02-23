@@ -12,6 +12,8 @@ public class TimeChange : MonoBehaviour
     [Header("Past&Present")]
     [SerializeField] GameObject _past;
     [SerializeField] GameObject _present;
+    [SerializeField] GameObject _pastBG;
+    [SerializeField] GameObject _presentBG;
     bool inPresent = false;
 
     [Header("Light&Volume")]
@@ -49,7 +51,7 @@ public class TimeChange : MonoBehaviour
     public void Start()
     {
         // find the roomSystem that has the rooms
-        roomSystem = GameObject.Find("GameManager").GetComponent<RoomSystem>();
+        roomSystem = GameObject.Find("RoomManager").GetComponent<RoomSystem>();
         // get the past and present from the roomsystem
         findPastAndPresent(null,null);
 
@@ -58,6 +60,7 @@ public class TimeChange : MonoBehaviour
             _past.SetActive(false);
             _present.SetActive(true);
         }
+
     }
 
     public void NewRoom()
@@ -83,6 +86,9 @@ public class TimeChange : MonoBehaviour
             _present.SetActive(true);
             _past.SetActive(false);
 
+            _presentBG.SetActive(true);
+            _pastBG.SetActive(false);
+
             _presentVolume.SetActive(true);
             _pastVolume.SetActive(false);
 
@@ -99,6 +105,9 @@ public class TimeChange : MonoBehaviour
         {
             _present.SetActive(false);
             _past.SetActive(true);
+
+            _presentBG.SetActive(false);
+            _pastBG.SetActive(true);
 
             GetComponentInChildren<Light2D>().enabled = false;
 

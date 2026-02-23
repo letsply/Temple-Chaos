@@ -6,6 +6,12 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject invUI;
+    GameManager gameManager;
+    private void Start()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
+
     public void Continue()
     {
         Time.timeScale = 1.0f;
@@ -15,14 +21,14 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().Save();
+        gameManager.SaveFile();
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
 
     public void SaveAndQuit()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().Save();
+        gameManager.SaveFile();
         Application.Quit();
         EditorApplication.isPlaying = false;
     }
