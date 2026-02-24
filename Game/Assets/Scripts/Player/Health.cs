@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [Range(0,10)] private int Hearts = 3;
+    [Range(0,10)] private int hearts = 3;
+    public int Hearts() => hearts;
+
     [SerializeField] GameObject[] uiHearts;
     [SerializeField] GameObject deathUI;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,7 +18,7 @@ public class Health : MonoBehaviour
     {
         for (int i = 0; i < uiHearts.Length; i++)
         {
-            if (Hearts < i + 1)
+            if (hearts < i + 1)
             {
                 uiHearts[i].SetActive(false);
             }
@@ -26,7 +28,7 @@ public class Health : MonoBehaviour
             }
         }
 
-        if (Hearts <= 0)
+        if (hearts <= 0)
         {
             deathUI.SetActive(true);
             GameObject.FindWithTag("GameManager").GetComponent<GameManager>().SaveFile();
@@ -35,6 +37,6 @@ public class Health : MonoBehaviour
     }
     public void TakeDamage(int amount)
     {
-        Hearts -= amount;
+        hearts -= amount;
     }
 }

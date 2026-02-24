@@ -8,8 +8,8 @@ public class ArrowTrap : MonoBehaviour
     List<GameObject> traps = new List<GameObject>();
     [SerializeField] GameObject arrow;
     [SerializeField] bool allwaysActive;
-    [SerializeField] float Speed;
-    bool spawnArrows;
+    [SerializeField] float speed;
+    [SerializeField] float frequency = 2;
     Coroutine coroutine = null;
 
     void Start()
@@ -18,10 +18,13 @@ public class ArrowTrap : MonoBehaviour
         {
             traps.Add(transform.GetChild(i).gameObject);
         }
-        if (allwaysActive) 
+    }
+
+    public void FixedUpdate()
+    {
+        if(coroutine == null && allwaysActive)
         {
-            spawnArrows = true;
-            StartCoroutine(Spawn(2, 3));
+            coroutine = StartCoroutine(Spawn(frequency, 3));
         }
     }
 
@@ -29,15 +32,7 @@ public class ArrowTrap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && coroutine == null && allwaysActive == false)
         {
-            coroutine = StartCoroutine(Spawn(2,3));
-            spawnArrows = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player" && allwaysActive == false)
-        {
-            spawnArrows = false;
+            coroutine = StartCoroutine(Spawn(frequency, 3));
         }
     }
     //spawns Frequency amount of Arrows/Sec
@@ -63,16 +58,16 @@ public class ArrowTrap : MonoBehaviour
                     switch (spawnedArrow.transform.eulerAngles.z)
                     {
                         case 0:
-                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.up * Speed, ForceMode2D.Impulse);
+                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.up * speed, ForceMode2D.Impulse);
                             break;
                         case 90:
-                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.left * Speed, ForceMode2D.Impulse);
+                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.left * speed, ForceMode2D.Impulse);
                             break;
                         case -90:
-                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.right * Speed, ForceMode2D.Impulse);
+                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.right * speed, ForceMode2D.Impulse);
                             break;
                         case 180:
-                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.down * Speed, ForceMode2D.Impulse);
+                            spawnedArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.down * speed, ForceMode2D.Impulse);
                             break;
                     }
                 }
