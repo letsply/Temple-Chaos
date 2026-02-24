@@ -18,6 +18,7 @@ public class EndofMapDoor : MonoBehaviour
             {
                 if (player.GetComponent<Inventory>().Items()[i] == 3)
                 {
+                    player.GetComponent<Inventory>().Items()[i] = 0;
                     hasKey = true;
                     GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
                     gameManager.CompleteTutorial();

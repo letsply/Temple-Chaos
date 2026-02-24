@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
 
     int _gold = 0;
     public int Gold() => _gold;
-    public void SetGold(int value) {  _gold -= _gold; }
+    public void SetGold(int value) {  _gold = value; }
 
     int _invSpace = 0;
     // if a interacteble isnt a item
@@ -36,12 +36,8 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        // get the saved items and setting them
         for (int i = 0; i < _items.Length; i++)
         {
-            _items[i] = PlayerPrefs.GetInt($"Item{i}");
-            _gold = PlayerPrefs.GetInt("Gold");
-
             if (_items[i] == 0)
             {
                 _invSpace++;
@@ -69,10 +65,11 @@ public class Inventory : MonoBehaviour
             // for every item in inv spawn the ui object if it isnt already existing
             for(int i = 0; i < _items.Length; i++)
             {
-                margin -= 150;
+                margin -= 60;
                 if (_items[i] != 0 && _itemIsInUI[i] == false)
                 {
-                    GameObject uiItem = Instantiate(_invItem, new Vector2(anchor.transform.position.x, anchor.position.y + margin), new Quaternion(), anchor.transform);
+                    GameObject uiItem = Instantiate(_invItem,  anchor.transform);
+                    uiItem.GetComponent<RectTransform>().anchoredPosition += new Vector2(0,margin);
                     uiItem.GetComponent<UIItem>()._id = _items[i];
                     _itemIsInUI[i] = true;
                 }
@@ -117,11 +114,12 @@ public class Inventory : MonoBehaviour
                         _invSpace--;
                         break;
                     }
-                    else if (_invSpace == 0)
-                    {
-                        //if no space in inv show it
-                        InvFull();
-                    }
+                    
+                }
+                if (_invSpace == 0)
+                {
+                    //if no space in inv show it
+                    InvFull();
                 }
             }
             else

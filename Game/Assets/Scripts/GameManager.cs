@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    GameObject player;
+    [SerializeField]GameObject player;
     Inventory inv;
     string path;
     int tutorialsCompleted;
@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
+        if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
+        {
+            Destroy(gameObject);
+        }
     }
     public void SaveFile()
     {
@@ -65,7 +69,7 @@ public class GameManager : MonoBehaviour
 
             levelUnlocked = save.LevelUnlocked;
             tutorialsCompleted = save.HasCompleteTutorial;
-            Debug.Log(player);
+
             inv.SetGold(save.Gold);
             for (int i = 0; i < save.Inventory.Length; i++)
             {
@@ -117,6 +121,7 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
         }
+        Time.timeScale = 1.0f;
         Scene scene = SceneManager.GetSceneByBuildIndex(sceneIndex);
         SceneManager.SetActiveScene(scene);
         LoadSave();

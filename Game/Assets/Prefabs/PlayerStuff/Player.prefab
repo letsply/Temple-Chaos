@@ -2783,6 +2783,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _past: {fileID: 0}
   _present: {fileID: 0}
+  _pastBG: {fileID: 0}
+  _presentBG: {fileID: 0}
   _globalLight: {fileID: 0}
   _globalBGLight: {fileID: 0}
   _pastVolume: {fileID: 0}
@@ -3611,6 +3613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDuraBar: {fileID: 595895336468946049}
   ItemDura: {fileID: 2258724159305098888}
+  potionImage: {fileID: -1473372513482807229, guid: 5adfcfbc00cd1ae49ab1ae4d752b5e50, type: 3}
 --- !u!114 &3655323211099401125
 MonoBehaviour:
   m_ObjectHideFlags: 0
