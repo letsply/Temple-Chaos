@@ -30,7 +30,6 @@ public class PauseMenu : MonoBehaviour
     {
         gameManager.SaveFile();
         Application.Quit();
-        EditorApplication.isPlaying = false;
     }
 
     public void Close(InputAction.CallbackContext context)
