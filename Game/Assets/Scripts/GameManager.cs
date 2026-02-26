@@ -31,10 +31,6 @@ public class GameManager : MonoBehaviour
         path = Application.persistentDataPath + "/" + "Save.Json";
 
         DontDestroyOnLoad(this);
-        if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
-        {
-            Destroy(gameObject);
-        }
     }
 
     #region Settings
@@ -56,6 +52,8 @@ public class GameManager : MonoBehaviour
         if (File.Exists(path))
         {
             File.Delete(path);
+            tutorialsCompleted = 0;
+            levelUnlocked = 0;
         }
     }
 
@@ -116,10 +114,14 @@ public class GameManager : MonoBehaviour
                 inv.SetItems(save.Inventory[i], i);
             }
 
-            if (save.HasCompleteTutorial == 0)
+            if (tutorialsCompleted == 0)
             {
                 player.GetComponent<TimeChange>().enabled = false;
             }
+        }
+        else
+        {
+            player.GetComponent<TimeChange>().enabled = false;
         }
     }
 
@@ -186,6 +188,11 @@ public class GameManager : MonoBehaviour
 
         Scene scene = SceneManager.GetSceneByBuildIndex(sceneIndex);
         SceneManager.SetActiveScene(scene);
+
+        if (sceneIndex == 0)
+        {
+            Destroy(gameObject);
+        }
 
         LoadSave();
     }

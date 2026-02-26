@@ -43,16 +43,10 @@ public class HiddenSegment : MonoBehaviour
         {
             inArea = true;
             outOfArea = 0f;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
             StartCoroutine(FadeTo(0, 1));
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")

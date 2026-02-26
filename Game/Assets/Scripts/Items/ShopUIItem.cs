@@ -55,7 +55,7 @@ public class ShopUIItem : MonoBehaviour
                 if (inv.Items()[i] == 0)
                 {
                     inv.SetItems(id, i);
-                    inv.SetGold(price);
+                    inv.SetGold(inv.Gold() - price);
                     Destroy(gameObject);
                     return;
                 }

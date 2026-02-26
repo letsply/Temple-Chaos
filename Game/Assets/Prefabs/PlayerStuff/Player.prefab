@@ -3960,7 +3960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cd4fea33ecab248be90bb412bc3592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items: 0200000002000000020000000200000002000000
+  _items: 0000000000000000000000000000000000000000
   _itemIsInUI: 0000000000
   _pickingRange: 1
   _itemLayer:
