@@ -11,7 +11,7 @@ public class StoneOfAja : MonoBehaviour
     public void Update()
     {
         GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        if (gameManager.TutorialCompleted() > 0)
+        if (gameManager.TutorialCompleted() >= 1)
         {
             Destroy(gameObject);
         }

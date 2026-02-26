@@ -15,6 +15,16 @@ public class Menu : MonoBehaviour
         StartCoroutine(ZoomIn(1.5f, 1f));
     }
 
+    public void ResetSaveGame()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().ResetSave();
+    }
+    
+    public void Link()
+    {
+        Application.OpenURL("https://www.youtube.com/@ContextSensitive");
+    }
+
     public void CloseGame()
     {
         Application.Quit();

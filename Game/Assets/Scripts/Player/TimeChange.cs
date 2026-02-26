@@ -14,7 +14,7 @@ public class TimeChange : MonoBehaviour
     [SerializeField] GameObject _present;
     [SerializeField] GameObject _pastBG;
     [SerializeField] GameObject _presentBG;
-    bool inPresent = false;
+    bool inPresent = true;
 
     [Header("Light&Volume")]
     [SerializeField] GameObject _globalLight;
@@ -30,10 +30,19 @@ public class TimeChange : MonoBehaviour
     RoomSystem roomSystem;
     bool isInOverlayArea;
     bool _canSwitch = true;
-
+    AudioSource backgroundMusic;
 
     public void findPastAndPresent(GameObject past,GameObject present)
     {
+        GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if (gameManager.FlashbangMode == false)
+        {
+            _flash.GetComponent<Light2D>().intensity = 2;
+        }
+        else {
+            _flash.GetComponent<Light2D>().intensity = 20;
+        }
+
         if (past == null || present == null)
         {
             _past = roomSystem.Rooms[roomSystem.CurentRoom].transform.Find("Past").gameObject;
@@ -50,16 +59,12 @@ public class TimeChange : MonoBehaviour
 
     public void Start()
     {
+        backgroundMusic = GameObject.Find("BgMusic").GetComponent<AudioSource>();
+
         // find the roomSystem that has the rooms
         roomSystem = GameObject.Find("RoomManager").GetComponent<RoomSystem>();
         // get the past and present from the roomsystem
         findPastAndPresent(null,null);
-
-        if (_present.activeSelf && _past.activeSelf)
-        {
-            _past.SetActive(false);
-            _present.SetActive(true);
-        }
 
     }
 
@@ -92,6 +97,9 @@ public class TimeChange : MonoBehaviour
             _presentVolume.SetActive(true);
             _pastVolume.SetActive(false);
 
+            backgroundMusic.volume /= 4;
+            backgroundMusic.pitch = 0.95f;
+
             GetComponentInChildren<Light2D>().enabled = true;
 
             _globalLight.GetComponent<Light2D>().color = new Color(0.81f, 0.81f, 0.95f);
@@ -108,6 +116,9 @@ public class TimeChange : MonoBehaviour
 
             _presentBG.SetActive(false);
             _pastBG.SetActive(true);
+
+            backgroundMusic.volume *= 4;
+            backgroundMusic.pitch = 1f;
 
             GetComponentInChildren<Light2D>().enabled = false;
 
@@ -155,6 +166,7 @@ public class TimeChange : MonoBehaviour
 
     IEnumerator Flash(float aValue, float aTime)
     {
+
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
             float radiusCurrent = _flash.GetComponent<Light2D>().pointLightOuterRadius;

@@ -7,6 +7,7 @@ public class LevelEntryDoor : MonoBehaviour
     bool isOpen = false;
     [SerializeField] int targetLevelNumber;
     [SerializeField] int targetLevelIndex;
+    [SerializeField] GameObject Door;
     bool isInRange = false;
 
     void Update()
@@ -16,6 +17,7 @@ public class LevelEntryDoor : MonoBehaviour
         if (gameManager != null && gameManager.LevelUnlocked() >= targetLevelNumber)
         {
             isOpen = true;
+            Door.SetActive(false);
         }
     }
 

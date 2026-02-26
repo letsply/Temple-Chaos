@@ -16,11 +16,15 @@ public class Enemy : MonoBehaviour
         Target = pos1;
         rb = GetComponent<Rigidbody2D>();
     }
-    void Update()
+    void FixedUpdate()
     {
-        rb.AddForce(new Vector2(dir * speed,0), ForceMode2D.Force);
-
         dir = Mathf.Sign(Target.x - transform.localPosition.x);
+
+        float targetSpeed = speed * dir;
+
+        float speedDif = targetSpeed - rb.linearVelocityX;
+
+        rb.AddForce(new Vector2(speedDif, 0), ForceMode2D.Force);
 
         bool InRange = Mathf.Clamp(transform.localPosition.x, Target.x - 0.25f, Target.x + 0.25f) == transform.localPosition.x;
         if (InRange)

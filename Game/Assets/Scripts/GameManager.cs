@@ -2,14 +2,25 @@ using System.IO;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] float musicVolume;
+    [SerializeField] float soundVolume;
+    public AudioMixerGroup MusicGroup;
+    public AudioMixerGroup soundGroup;
+
+    public bool FlashbangMode = false;
+
     [SerializeField]GameObject player;
+    [SerializeField] GameObject endOfDemoScreen;
+
+    Save save;
     Inventory inv;
+
     string path;
     int tutorialsCompleted;
-    Save save;
     int levelUnlocked;
 
     public int TutorialCompleted() => tutorialsCompleted;
@@ -17,12 +28,43 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        path = Application.persistentDataPath + "/" + "Save.Json";
+
         DontDestroyOnLoad(this);
         if (GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
         {
             Destroy(gameObject);
         }
     }
+
+    #region Settings
+
+    public void ChangeMusicVolume(float value)
+    {
+        musicVolume = value * 100 - 80;
+        MusicGroup.audioMixer.SetFloat("MusicVol", musicVolume);
+    }
+
+    public void ChangeSFXVolume(float value)
+    {
+        soundVolume = value * 100 - 80;
+        MusicGroup.audioMixer.SetFloat("SoundVol", soundVolume);
+    }
+
+    public void ResetSave()
+    {
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
+
+    public void ToggleFlashbangMode(bool value)
+    {
+        FlashbangMode = value;
+    }
+    #endregion
+
     public void SaveFile()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -37,7 +79,6 @@ public class GameManager : MonoBehaviour
             save.Inventory = inv.Items();
             save.HasCompleteTutorial = tutorialsCompleted;
 
-            path = Application.persistentDataPath + "/" + "Save.Json";
             CreatejsonFile();
         }
         else {
@@ -60,7 +101,6 @@ public class GameManager : MonoBehaviour
 
     void LoadSave()
     {
-        path = Application.persistentDataPath + "/" + "Save.Json";
 
         if (File.Exists(path))
         {
@@ -83,6 +123,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void EndOfDemo()
+    {
+        Time.timeScale = 0f;
+        if (levelUnlocked == 1)
+        {
+            levelUnlocked = 2;
+        }
+        SaveFile();
+        endOfDemoScreen.SetActive(true);
+    }
 
     public void CompleteTutorial()
     {
@@ -93,6 +143,16 @@ public class GameManager : MonoBehaviour
         }
         SaveFile();
         Load(1);
+    }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator LoadSceneWithDelay(int sceneIndex)
@@ -121,12 +181,14 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
         }
+
         Time.timeScale = 1.0f;
+
         Scene scene = SceneManager.GetSceneByBuildIndex(sceneIndex);
         SceneManager.SetActiveScene(scene);
+
         LoadSave();
     }
-
 
     public class Save
     {
